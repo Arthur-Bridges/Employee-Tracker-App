@@ -76,13 +76,12 @@ function app() {
     }
 
     function viewRoles(){
-        const query = `
-    SELECT role.id, role.title, department.name AS department, role.salary
-    FROM role
-    INNER JOIN department ON role.department_id = department.id
-  `;
-  connection.query(query, (err, results) => {
-    if (err) throw err;
+    const query = `
+        SELECT role.id, role.title, department.name AS department, role.salary
+        FROM role
+        INNER JOIN department ON role.department_id = department.id
+             `;
+    connection.query(query, (err, results) => {
     console.table(results);
     startApp();
   });
