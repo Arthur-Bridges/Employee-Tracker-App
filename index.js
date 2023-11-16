@@ -69,21 +69,16 @@ function app() {
 
 //OOP method below. IMPLEMENT a design pattern
     function viewDepartments(){
-        connection.query('SELECT * FROM department',  (results) => {
+        db.query('SELECT * FROM department',  (results) => {
             console.table(results);
             startApp();
         });
     }
 
     function viewRoles(){
-    const query = `
-        SELECT role.id, role.title, department.name AS department, role.salary
-        FROM role
-        INNER JOIN department ON role.department_id = department.id
-             `;
-    connection.query(query, (err, results) => {
-    console.table(results);
-    startApp();
-  });
+        db.query('SELECT * FROM role', (results) => {
+            console.table(results);
+            startApp();
+        });
     }
     
