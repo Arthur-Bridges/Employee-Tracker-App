@@ -157,6 +157,21 @@ function app() {
     };
 
     function updateEmployee(){
-
+        const add = inquirer.prompt([
+            {
+                type: 'input',
+                message: 'Input the employee ID: ',
+                name: 'updatedEmployeeId'
+            },
+            {
+                type: 'input',
+                message: 'Input the updated role: ',
+                name: 'roleId'
+            }
+        ])
+        db.query('UPDATE employee SET role_id = ? WHERE id = ?', [add.roleId, add.updatedEmployeeId], (results) => {
+            console.table(results);
+            startApp();
+        });
     };
     
