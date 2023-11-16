@@ -29,7 +29,7 @@ function app() {
                 ''
             ]
         }
-    ]).then(data) {
+    ]).then(data){
         switch (data.choice) {
             
             case 'View all departments':
@@ -64,21 +64,99 @@ function app() {
                 console.log("Try again!");
                 startApp();
         }
-    }
+    };
 }
 
-//OOP method below. IMPLEMENT a design pattern
+//OOP method below. IMPLEMENT a design pattern for future
     function viewDepartments(){
         db.query('SELECT * FROM department',  (results) => {
             console.table(results);
             startApp();
         });
-    }
+    };
 
     function viewRoles(){
         db.query('SELECT * FROM role', (results) => {
             console.table(results);
             startApp();
         });
-    }
+    };
+    
+    function viewEmployees(){
+        db.query('SELECT * FROM employee',  (results) => {
+            console.table(results);
+            startApp();
+        });
+    };
+
+    function addDepartment(){
+        const add = inquirer.prompt([
+            {
+                type: 'input',
+                message: 'What is the new department name?: ',
+                name: 'newDepartment'
+            }
+        ])
+        db.query('INSERT INTO department (department_name) VALUES (?)', [add.newDepartment], (results) => {
+            console.table(results);
+            startApp();
+        });
+    };
+
+    function addRole(){
+        const add = inquirer.prompt([
+            {
+                type: 'input',
+                message: 'What is the new role name?: ',
+                name: 'newRole'
+            },
+            {
+                type: 'input',
+                message: 'What is the new salary?: ',
+                name: 'newSalary'
+            },
+            {
+                type: 'input',
+                message: 'What is the department ID?: ',
+                name: 'departmentId'
+            }
+        ])
+        db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [add.newRole, add.newSalary, add.departmentId], (results) => {
+            console.table(results);
+            startApp();
+        });
+    };
+
+    function addEmployee(){
+        const add = inquirer.prompt([
+            {
+                type: 'input',
+                message: 'Input the first name: ',
+                name: 'firstName'
+            },
+            {
+                type: 'input',
+                message: 'Input the last name: ',
+                name: 'lastName'
+            },
+            {
+                type: 'input',
+                message: 'Input the Role ID: ',
+                name: 'roleId'
+            },
+            {
+                type: 'input',
+                message: 'Input the Manager ID: ',
+                name: 'managerId'
+            }
+        ])
+        db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [add.firstName, add.lastName, add.roleId, add.managerId], (results) => {
+            console.table(results);
+            startApp();
+        });
+    };
+
+    function updateEmployee(){
+
+    };
     
